@@ -1,0 +1,82 @@
+[
+  {
+    "pregunta": "¿Cuáles son los títulos de todas las películas registradas?",
+    "sql": "SELECT movieTitle FROM Movie;"
+  },
+  {
+    "pregunta": "¿Qué idiomas originales están representados en las películas?",
+    "sql": "SELECT DISTINCT originalLanguage FROM Movie;"
+  },
+  {
+    "pregunta": "¿Cuáles son los títulos y fechas de estreno de las películas lanzadas después de 2020?",
+    "sql": "SELECT movieTitle, releaseDate FROM Movie WHERE releaseDate > '2020-01-01';"
+  },
+  {
+    "pregunta": "¿Cuál es el género asociado a cada película?",
+    "sql": "SELECT m.movieTitle, g.name AS genre FROM Movie m JOIN Movie_Gender mg ON m.movieID = mg.movieID JOIN Gender g ON mg.genderID = g.genderID;"
+  },
+  {
+    "pregunta": "¿Qué actores o directores participaron en cada película?",
+    "sql": "SELECT m.movieTitle, p.name AS personName, pt.participantRole FROM Movie m JOIN Participant pt ON m.movieID = pt.movieID JOIN Person p ON pt.personID = p.personID;"
+  },
+  {
+    "pregunta": "¿Qué películas han recibido premios?",
+    "sql": "SELECT m.movieTitle, a.awardName, a.rating FROM Award a JOIN Movie m ON a.movieID = m.movieID;"
+  },
+  {
+    "pregunta": "¿Qué personas nacieron después del año 1980?",
+    "sql": "SELECT name, birthday FROM Person WHERE birthday > '1980-01-01';"
+  },
+  {
+    "pregunta": "¿Cuál es el país de origen de cada persona?",
+    "sql": "SELECT p.name, c.countryName FROM Person p JOIN Country c ON p.countryID = c.countryID;"
+  },
+  {
+    "pregunta": "¿Cuál es la calificación promedio de todas las películas premiadas?",
+    "sql": "SELECT AVG(rating) AS promedio_calificacion FROM Award;"
+  },
+  {
+    "pregunta": "¿Qué película tiene la calificación más alta?",
+    "sql": "SELECT m.movieTitle, a.rating FROM Award a JOIN Movie m ON a.movieID = m.movieID ORDER BY a.rating DESC LIMIT 1;"
+  },
+  {
+    "pregunta": "¿Qué películas tienen más de un género?",
+    "sql": "SELECT m.movieTitle FROM Movie m JOIN Movie_Gender mg ON m.movieID = mg.movieID GROUP BY m.movieID HAVING COUNT(mg.genderID) > 1;"
+  },
+  {
+    "pregunta": "¿Qué películas no han ganado premios?",
+    "sql": "SELECT movieTitle FROM Movie WHERE movieID NOT IN (SELECT movieID FROM Award);"
+  },
+  {
+    "pregunta": "¿Qué personas han actuado en películas?",
+    "sql": "SELECT DISTINCT p.name FROM Person p JOIN Participant pt ON p.personID = pt.personID WHERE pt.participantRole = 'Actor';"
+  },
+  {
+    "pregunta": "¿Qué personas dirigieron películas estrenadas antes del año 2000?",
+    "sql": "SELECT p.name, m.movieTitle FROM Person p JOIN Participant pt ON p.personID = pt.personID JOIN Movie m ON pt.movieID = m.movieID WHERE pt.participantRole = 'Director' AND m.releaseDate < '2000-01-01';"
+  },
+  {
+    "pregunta": "¿Qué películas están disponibles en idioma 'Korean'?",
+    "sql": "SELECT movieTitle FROM Movie WHERE originalLanguage = 'Korean';"
+  },
+  {
+    "pregunta": "¿Qué películas tienen calificación mayor a 4.7?",
+    "sql": "SELECT m.movieTitle, a.rating FROM Award a JOIN Movie m ON a.movieID = m.movieID WHERE a.rating > 4.7;"
+  },
+  {
+    "pregunta": "¿Qué géneros están asociados a la película 'Pulp Fiction'?",
+    "sql": "SELECT g.name FROM Movie m JOIN Movie_Gender mg ON m.movieID = mg.movieID JOIN Gender g ON mg.genderID = g.genderID WHERE m.movieTitle = 'Pulp Fiction';"
+  },
+  {
+    "pregunta": "¿Quiénes participaron en la película 'Roma' y cuál fue su rol?",
+    "sql": "SELECT p.name, pt.participantRole FROM Movie m JOIN Participant pt ON m.movieID = pt.movieID JOIN Person p ON pt.personID = p.personID WHERE m.movieTitle = 'Roma';"
+  },
+  {
+    "pregunta": "¿Cuántas películas tienen el género 'Drama'?",
+    "sql": "SELECT COUNT(DISTINCT m.movieID) AS total_dramas FROM Movie m JOIN Movie_Gender mg ON m.movieID = mg.movieID JOIN Gender g ON mg.genderID = g.genderID WHERE g.name = 'Drama';"
+  },
+  {
+    "pregunta": "¿Qué enlaces de Netflix están disponibles para las películas?",
+    "sql": "SELECT movieTitle, link FROM Movie WHERE link IS NOT NULL;"
+  }
+]
