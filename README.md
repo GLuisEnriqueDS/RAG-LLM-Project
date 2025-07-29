@@ -35,8 +35,8 @@ Este paso crea el archivo ejemplos_embeds.pkl que ayuda a la búsqueda semántic
 
 6. Configura la clave de API para Gemini
 Crea un archivo .env en la raíz del proyecto con la siguiente variable (reemplaza con tu propia API key):
-
 GEMINI_API_KEY=tu_api_key_aqui
+
 6. Ejecuta la aplicación Streamlit
 streamlit run main.py
 Esto abrirá la interfaz web donde podrás escribir preguntas en lenguaje natural y ver las consultas SQL generadas junto con su análisis.
